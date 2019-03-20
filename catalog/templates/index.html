@@ -1,0 +1,37 @@
+{% extends "main_generic.html" %}
+
+{% block content %}
+
+    <div class = "game-blocks">
+    <ul id="slides">
+        <li class="slide showing">Slide 1</li>
+        <li class="slide">Slide 2</li>
+        {% if games %}
+
+      {% for game in games %}
+      <li class="slide">
+        <img src="{{ game.image.url }}" width = "500px" height = "300px" alt="">
+      </li>
+      {% endfor %}
+
+    {% else %}
+      <p>There are no 3books in the library.</p>
+    {% endif %}
+    </ul>
+  </div>
+
+    <script>
+    var slides = document.querySelectorAll('#slides .slide');
+    var currentSlide = 0;
+    var slideInterval = setInterval(nextSlide,2000);
+
+    function nextSlide() {
+     slides[currentSlide].className = 'slide';
+     currentSlide = (currentSlide+1)%slides.length;
+     slides[currentSlide].className = 'slide showing';
+    }
+
+    </script>
+    
+    
+{% endblock %}

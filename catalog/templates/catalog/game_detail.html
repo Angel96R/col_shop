@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Title: {{ game.title }}</h1>
+    
+    
+ <p> 
+        <img src="{{ game.image.url }}" width = "250px" height = "150px" alt=""> </p>
+        
+  <p>
+    <strong>Author:</strong> 
+    <a href="">{{ game.author }}</a>
+  </p>
+  
+  <p><strong>Summary:</strong> {{ game.summary }}</p>
+  
+  <p><strong>Genre:</strong> 
+  {% for genre in game.genre.all %} 
+    {{ genre }}
+    {% if not forloop.last %}, 
+    {% endif %}
+    
+  {% endfor %}</p> 
+
+  <form>
+        <input type = "submit" value = "Купить"/>
+  </form>
+
+{% endblock %}

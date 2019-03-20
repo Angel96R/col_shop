@@ -1,0 +1,124 @@
+body {
+    background: url("../gfx/main_bg.png");
+    background-width: 10px;
+}
+.title {
+    right: 50px;
+    color: rgba(100, 100, 100, 1);
+}
+.title h1 {
+    font-size: 128px;    
+}
+.title h3 {
+    font-size: 48px;
+}
+.game-blocks {
+    width: 500px;
+    height: 500px;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    right: 5%;
+    top: 25%;
+}
+.menu {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    position: absolute;
+    bottom: 0px;
+    width: 50%;
+    height: 42px;
+}
+.menu ul, li {
+    padding-top: 7px;
+    display: inline-block;
+}
+.menu li {
+    padding-left: 32px;
+    text-decoration: none;
+}
+.menu a {
+    color: rgba(150, 150, 150, 1); 
+}
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
+#slides {
+    position: relative;
+    height: 300px;
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+#slides li{ 
+    padding: 0px;
+    margin: 0px;
+}
+.slide {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 1;
+    -webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    -o-transition: opacity 1s;
+    transition: opacity 1s;
+}
+.showing {
+    opacity: 1;
+    z-index: 2;
+}
+.slide {
+    font-size: 40px;
+    padding: 40px;
+    box-sizing: border-box;
+    background: #333;
+    color: #fff;
+}
+.slide:nth-of-type(1) {
+    background: red;
+}
+.slide:nth-of-type(2) {
+    background: orange;
+}
+.slide:nth-of-type(3) {
+    background: green;
+}
+.slide:nth-of-type(4) {
+    background: blue;
+}
+.slide:nth-of-type(5) {
+    background: purple;
+}
+
+/* CATALOG GAMES */
+
+.catalog_h1 {
+  overflow: hidden;
+  text-align: center;
+  color: rgba(150, 150, 150, .5); 
+}
+.catalog_h1:before, .catalog_h1:after {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 20%;
+  height: 3px;
+  background: rgba(150, 150, 150, .5); 
+  /* border: solid rgba(150, 150, 150, 1); */
+  margin: 10px;
+  border-width: 0 10px;
+}
+.catalog_h1:before {
+  margin-left: -100%;
+}
+.catalog_h1:after {
+  margin-right: -100%;
+}
+.catalog_games {
+  background-color: rgba(0, 0, 0, 0.6);
+}

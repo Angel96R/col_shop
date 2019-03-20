@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  {% block title %}<title>Local Library</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <!-- Добавление дополнительного статического CSS файла -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+        
+  <div class = "title">
+    <h1> COLLAPSAR </h1>
+    <h3> BOARD GAMES </h3>
+  </div>
+  
+  <div class = "base_gen_login">
+  
+    {% if user.is_authenticated %}
+    
+        <p> Hi, {{ user.get_username }} </p>
+        <p> <a href="{% url 'logout'%}?next={{request.path}}">Logout</a> <p>        
+    {% else %}
+        <p> <a href="{% url 'login'%}?next={{request.path}}">Login</a>  <p>
+   {% endif %} 
+  
+  </div>  
+  
+  
+  {% block content %}{% endblock %}
+  
+  
+  
+  <div class = "menu">
+    <ul>
+        {% block sidebar %}
+        <li> <a href = "{% url 'games' %}" > GAMES </a> </li>
+        <li> <a href = "" > MEETINGS </a> </li>
+        <li> <a href = "" > SHOPS </a> </li>
+        <li> <a href = "" > WE </a> </li>
+        {% endblock %}
+    </ul>
+        
+  </div>
+  
+  
+  
+</body>
+</html>

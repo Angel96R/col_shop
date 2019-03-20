@@ -1,0 +1,94 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1 class = "catalog_h1">Our Games</h1>
+
+    {% if game_list %}
+    <div class = "catalog_games">
+    
+    <ul>
+    
+      {% for game in game_list %}
+      
+      <li>
+      
+        <p> 
+        <img src="{{ game.image.url }}" width = "250px" height = "150px" alt=""> </p>
+        
+        <p> <a href="{{ game.get_absolute_url }}">{{ game.title }}</a> <p>
+        
+        <p> ({{game.author}}) </p>
+        
+        <p> {% for genre in game.genre.all %} 
+        
+                {{ genre }}
+                
+                {% if not forloop.last %}, {% endif %}
+                
+            {% endfor %} 
+           
+        </p>
+        
+        <p> ({{game.summary}}) </p>
+        
+        
+      </li>
+      
+      {% endfor %}
+
+    </ul>
+    
+    </div>
+    
+    {% else %}
+    
+      <p>There are no books in the library.</p>
+      
+    {% endif %}  
+
+    <h1 class = "catalog_h1">All Games</h1>
+
+    {% if game_list %}
+    <div class = "catalog_games">
+    
+    <ul>
+    
+      {% for game in game_list %}
+      
+      <li>
+      
+        <p> 
+        <img src="{{ game.image.url }}" width = "250px" height = "150px" alt=""> </p>
+        
+        <p> <a href="{{ game.get_absolute_url }}">{{ game.title }}</a> <p>
+        
+        <p> ({{game.author}}) </p>
+        
+        <p> {% for genre in game.genre.all %} 
+        
+                {{ genre }}
+                
+                {% if not forloop.last %}, {% endif %}
+                
+            {% endfor %} 
+           
+        </p>
+        
+        <p> ({{game.summary}}) </p>
+        
+        
+      </li>
+      
+      {% endfor %}
+
+    </ul>
+    
+    </div>
+    
+    {% else %}
+    
+      <p>There are no books in the library.</p>
+      
+    {% endif %}       
+    
+{% endblock %}
