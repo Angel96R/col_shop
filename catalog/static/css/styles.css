@@ -1,65 +1,62 @@
 body {
-    background: url("../gfx/bg.png");
-    background-width: 10px;
+    background: url("../gfx/bg.png") no-repeat center top fixed;  
+    -moz-background-size: 100% auto; 
+    -webkit-background-size: 100% auto;
+    -o-background-size: 100% auto; 
+    background-size: 100% auto; 
 }
-.title {
+
+/* MAIN TEMPL */
+
+.main-body {
+    background: url("../gfx/main_bg.png");  
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat; 
+    background-size: cover;
+}
+.main-title {
     right: 50px;
-    color: rgba(100, 100, 100, 1);
+    color: rgba(200, 50, 50, 1);
+        text-shadow: -1px 1px 0 black, 1px -1px 0 black, -2px 2px 0 black, 2px -2px 0 black,
+        -3px 3px 0 black, 3px -3px 0 black, -4px 4px 0 black, 4px -4px 0 black
 }
-.title h1 {
+.main-title h1 {
     font-size: 128px;    
 }
-.title h3 {
+.main-title h3 {
     font-size: 48px;
 }
-.game-blocks {
+.main-game-blocks {
     width: 500px;
     height: 500px;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: #a8324a;
     position: absolute;
     right: 5%;
     top: 25%;
-}
-.menu {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-    position: absolute;
-    bottom: 0px;
-    width: 50%;
-    height: 42px;
-}
-.menu ul, li {
-    padding-top: 7px;
-    display: inline-block;
-}
-.menu li {
-    padding-left: 32px;
-    text-decoration: none;
-}
-.menu a {
-    color: rgba(150, 150, 150, 1); 
 }
 .sidebar-nav {
     margin-top: 20px;
     padding: 0;
     list-style: none;
 }
-#slides {
+#main-slides {
     position: relative;
     height: 300px;
     padding: 0px;
     margin: 0px;
+    margin-left: 10px;
+    margin-top: 10px;
     list-style-type: none;
 }
-#slides li{ 
+#main-slides li{ 
     padding: 0px;
     margin: 0px;
 }
-.slide {
+.main-slide {
     position: absolute;
     left: 0px;
     top: 0px;
-    width: 100%;
-    height: 100%;
     opacity: 0;
     z-index: 1;
     -webkit-transition: opacity 1s;
@@ -67,39 +64,93 @@ body {
     -o-transition: opacity 1s;
     transition: opacity 1s;
 }
+.main-slide {
+    padding: 40px;
+    box-sizing: border-box;
+    color: #cbd094;
+}
+.main-slide h1 {
+    font-family: Impact, Charcoal, sans-serif;
+    margin-bottom: 0px;
+    
+}
 .showing {
     opacity: 1;
     z-index: 2;
 }
-.slide {
-    font-size: 40px;
-    padding: 40px;
-    box-sizing: border-box;
-    background: #333;
-    color: #fff;
+
+
+/* BASE TEMPL */
+
+.base-title {
+    color: rgba(100, 100, 100, 1);
+    margin-left: 64px;
+    height: 64px;
 }
-.slide:nth-of-type(1) {
-    background: red;
+.base-title h1, h2, h3 {
+    padding: 0px;
+    margin: 0px;
 }
-.slide:nth-of-type(2) {
-    background: orange;
+.base-title img {
+    float: left;
+    padding-right: 32px;
 }
-.slide:nth-of-type(3) {
-    background: green;
+
+/* GENERAL */
+
+.auth_block {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 128px;
+    background-color: #a8324a;
+    height: 32px;
 }
-.slide:nth-of-type(4) {
-    background: blue;
+.auth_block a {
+    color: #cbd094;
+    font-family: Impact, Charcoal, sans-serif;
 }
-.slide:nth-of-type(5) {
-    background: purple;
+.auth_block ul {    
+    padding: 0px;
 }
+.auth_block li:first-child {
+    padding-left: 13px;
+    text-decoration: underline;
+    color: #cbd094;
+}
+.auth_block li {
+    padding: 0px;
+    padding-right: 13px;
+}
+.menu {
+    position: fixed;
+    left: 0; 
+    bottom: 0;
+    background-color: #a8324a;
+    width: 50%;
+    height: 32px;
+}
+.menu ul, li {
+    display: inline-block;
+}
+.menu li {
+    padding-left: 32px;
+    text-decoration: none;
+}
+.menu a {
+    font-size: 20px;
+    color: #cbd094;
+    font-family: Impact, Charcoal, sans-serif;
+}
+
 
 /* CATALOG GAMES */
 
 .catalog_h1 {
-  overflow: hidden;
-  text-align: center;
-  color: rgba(150, 150, 150, .5); 
+    overflow: hidden;
+    text-align: center;
+    color: #fdcf65;
+    text-shadow: -3px -3px 0 black;
 }
 .catalog_h1:before, .catalog_h1:after {
   content: '';
@@ -108,10 +159,11 @@ body {
   box-sizing: border-box;
   width: 20%;
   height: 3px;
-  background: rgba(150, 150, 150, .5); 
+  background: #fdcf65; 
   /* border: solid rgba(150, 150, 150, 1); */
   margin: 10px;
   border-width: 0 10px;
+  box-shadow: -3px -3px 0 black;
 }
 .catalog_h1:before {
   margin-left: -100%;
@@ -120,5 +172,5 @@ body {
   margin-right: -100%;
 }
 .catalog_games {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: #fdcf65;
 }

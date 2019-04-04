@@ -22,8 +22,27 @@
     
   {% endfor %}</p> 
 
-  <form>
-        <input type = "submit" value = "Купить"/>
-  </form>
+  <p> <a href = " {% url 'cart_add_item' game.id%}?repath={{request.path}} "> в корзину </a> </p>
+
+<script>
+
+/*    $(function() {
+          $('form').submit(function(e) {
+            var $form = $(this);
+            $.ajax({
+              type: $form.attr('post'),
+              url: $form.attr(''),
+              data: $form.serialize()
+            }).done(function() {
+              console.log('success');
+            }).fail(function() {
+              console.log('fail');
+            });
+            //отмена действия по умолчанию для кнопки submit
+            e.preventDefault(); 
+          });
+        });*/
+
+</script>
 
 {% endblock %}

@@ -1,16 +1,17 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1 class = "catalog_h1">Our Games</h1>
+
+    <h1 class = "catalog_h1"> наши игры </h1>
 
     {% if game_list %}
-    <div class = "catalog_games">
+    <div>
     
     <ul>
     
       {% for game in game_list %}
       
-      <li>
+      <li class = "catalog_games">
       
         <p> 
         <img src="{{ game.image.url }}" width = "250px" height = "150px" alt=""> </p>
@@ -29,9 +30,8 @@
            
         </p>
         
-        <p> ({{game.summary}}) </p>
-        
-        
+        <p> <a href = " {% url 'cart_add_item' game.id%}?repath={{request.path}} "> в корзину </a> </p>
+                
       </li>
       
       {% endfor %}
@@ -42,53 +42,8 @@
     
     {% else %}
     
-      <p>There are no books in the library.</p>
+      <p> Странно, но игр нет :( </p>
       
-    {% endif %}  
-
-    <h1 class = "catalog_h1">All Games</h1>
-
-    {% if game_list %}
-    <div class = "catalog_games">
-    
-    <ul>
-    
-      {% for game in game_list %}
-      
-      <li>
-      
-        <p> 
-        <img src="{{ game.image.url }}" width = "250px" height = "150px" alt=""> </p>
-        
-        <p> <a href="{{ game.get_absolute_url }}">{{ game.title }}</a> <p>
-        
-        <p> ({{game.author}}) </p>
-        
-        <p> {% for genre in game.genre.all %} 
-        
-                {{ genre }}
-                
-                {% if not forloop.last %}, {% endif %}
-                
-            {% endfor %} 
-           
-        </p>
-        
-        <p> ({{game.summary}}) </p>
-        
-        
-      </li>
-      
-      {% endfor %}
-
-    </ul>
-    
-    </div>
-    
-    {% else %}
-    
-      <p>There are no books in the library.</p>
-      
-    {% endif %}       
+    {% endif %}     
     
 {% endblock %}

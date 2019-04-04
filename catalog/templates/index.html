@@ -2,35 +2,40 @@
 
 {% block content %}
 
-    <div class = "game-blocks">
-    <ul id="slides">
-        <li class="slide showing">Slide 1</li>
-        <li class="slide">Slide 2</li>
-        {% if games %}
+    <div class = "main-game-blocks">
+    
+        <ul id = "main-slides">
+            
+            {% if games %}            
+                {% for game in games %}
+                
+                    <li class = "main-slide">
+                        <img src = "{{ game.image.url }}" width = "480px" height = "300px" alt = "game.title">                        
+                        <h1> {{ game.title }} </h1>
+                        <small> {{game.genre }} / {{ game.author }} </small>
+                        <p> {{ game.summary }} </p>
+                    </li>
+            
+                {% endfor %}
 
-      {% for game in games %}
-      <li class="slide">
-        <img src="{{ game.image.url }}" width = "500px" height = "300px" alt="">
-      </li>
-      {% endfor %}
-
-    {% else %}
-      <p>There are no 3books in the library.</p>
-    {% endif %}
-    </ul>
-  </div>
+            {% else %}
+                <li> Странно, куда-то пропали все игры </li>
+            {% endif %}
+        </ul>
+    </div>
 
     <script>
-    var slides = document.querySelectorAll('#slides .slide');
-    var currentSlide = 0;
-    var slideInterval = setInterval(nextSlide,2000);
-
-    function nextSlide() {
-     slides[currentSlide].className = 'slide';
-     currentSlide = (currentSlide+1)%slides.length;
-     slides[currentSlide].className = 'slide showing';
-    }
-
+    
+        var slides = document.querySelectorAll('#main-slides .main-slide');
+        var currentSlide = 0;
+        var slideInterval = setInterval(nextSlide,2000);
+        
+        function nextSlide() {
+            slides[currentSlide].className = 'main-slide';
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].className = 'main-slide showing';
+        }
+        
     </script>
     
     
