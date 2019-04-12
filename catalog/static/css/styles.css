@@ -1,9 +1,9 @@
 body {
-    background: url("../gfx/bg.png") no-repeat center top fixed;  
-    -moz-background-size: 100% auto; 
-    -webkit-background-size: 100% auto;
-    -o-background-size: 100% auto; 
-    background-size: 100% auto; 
+    background: url("../gfx/bg.png");  
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat; 
+    background-size: cover;
 }
 
 /* MAIN TEMPL */
@@ -16,10 +16,11 @@ body {
     background-size: cover;
 }
 .main-title {
+    padding-left: 13px;
+    overflow: hidden;
+    color: #fdcf65;
+    text-shadow: -5px -5px 0 black;
     right: 50px;
-    color: rgba(200, 50, 50, 1);
-        text-shadow: -1px 1px 0 black, 1px -1px 0 black, -2px 2px 0 black, 2px -2px 0 black,
-        -3px 3px 0 black, 3px -3px 0 black, -4px 4px 0 black, 4px -4px 0 black
 }
 .main-title h1 {
     font-size: 128px;    
@@ -83,17 +84,11 @@ body {
 /* BASE TEMPL */
 
 .base-title {
-    color: rgba(100, 100, 100, 1);
-    margin-left: 64px;
-    height: 64px;
-}
-.base-title h1, h2, h3 {
-    padding: 0px;
-    margin: 0px;
-}
-.base-title img {
-    float: left;
-    padding-right: 32px;
+    overflow: hidden;
+    color: #fdcf65;
+    text-shadow: -5px -5px 0 black;
+    padding-top: 13px;
+    padding-left: 13px;
 }
 
 /* GENERAL */
@@ -172,5 +167,21 @@ body {
   margin-right: -100%;
 }
 .catalog_games {
-  background-color: #fdcf65;
+    background-color: #fdcf65;    
+}
+.catalog-block ul{
+    text-align: center;
+}
+.catalog-block ul:after {
+    /* HERE IS MAGIC */
+    content: ' i i i i i i i i ';
+    word-spacing: 246px;
+    padding-left: 246px;
+    visibility: hidden;
+}
+.catalog-block ul li{
+    display : inline-block;
+    vertical-align: top;
+    text-align: center;
+    margin-top: 6px;
 }

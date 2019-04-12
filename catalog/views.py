@@ -9,15 +9,41 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Game, Author, Genre, Customer, Cart
 from .forms import BuyGame
+from .forms import SearchGame
 
 def index(request):
 
     games = Game.objects.all()
+    
 
     return render(
         request,
         'index.html',
-        context={'games':games,},
+        context = {'games' : games, },
+    )
+    
+def getGames(request):
+
+    games = Game.objects.all()
+    search_form = SearchGame()
+    
+    return render(
+        request,
+        'catalog/game_list.html',
+        context = {'game_list' : games, 
+        'form' : search_form, },
+    )
+    
+def searchGame(request):
+
+    games = Game.objects.all()        
+    search_form = SearchGame(request.GET)
+
+    return render(
+        request,
+        'catalog/game_search.html',
+        context = {'game_list' : games, 
+        'form' : search_form, },
     )
 
 def getGame(request, pk):

@@ -3,8 +3,6 @@
 {% block content %}
 
     <div class = "catalog-body">
-
-        <h1 class = "catalog_h1"> наши игры </h1>
         
         <div class ="catalog-search">
             <form action = "{% url 'game_search' %}" method = "GET">
@@ -53,7 +51,7 @@
     
     {% else %}
     
-      <p> Странно, но игр нет :( </p>
+      <p> Странно, но таких игр не нашлось </p>
       
     {% endif %}     
     
