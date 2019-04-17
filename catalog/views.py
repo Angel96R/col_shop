@@ -10,28 +10,45 @@ from django.contrib.auth.models import User
 from .models import Game, Author, Genre, Customer, Cart
 from .forms import BuyGame
 from .forms import SearchGame
+from .forms import FilterGenres
 
 def index(request):
 
-    games = Game.objects.all()
-    
+    games = Game.objects.all()   
+    genres = Genre.objects.all()    
 
     return render(
         request,
         'index.html',
-        context = {'games' : games, },
+        context = {'games' : games, 'genres' : genres},
     )
     
 def getGames(request):
 
-    games = Game.objects.all()
     search_form = SearchGame()
+    genres_form =  FilterGenres()
+    genres = Genre.objects.all()
+    games = Game.objects.all()
+    genres = Genre.objects.all()
     
+    genre = request.GET.get('genre')
+    srequest = request.GET.get('srequest')
+
+    if genre != None:
+        if genre != "-1":        
+            games = Game.objects.filter(genre = int(genre))
+            
+    if srequest != None:
+        games = Game.objects.filter(title = srequest)
+           
     return render(
         request,
         'catalog/game_list.html',
         context = {'game_list' : games, 
-        'form' : search_form, },
+        'form' : search_form,
+        'genres' : genres,
+        'genres_form' : genres_form,
+        },
     )
     
 def searchGame(request):
@@ -75,12 +92,25 @@ def getGame(request, pk):
     
 def getCart(request):
 
-    try:
-        user_cart = Cart.objects.get(customer = request.user.customer)
-        cart_items = user_cart.items.all()
-    except Cart.DoesNotExist:
-        user_cart = None
-        cart_items = None
+
+    if request.user.is_authenticated:
+
+        try:
+            user_cart = Cart.objects.get(customer = request.user.customer)
+            cart_items = user_cart.items.all()
+        except Cart.DoesNotExist:
+            user_cart = None
+            cart_items = None
+            
+    else:
+    
+        try:
+            user_cart = request.session.get('cart', {})
+            cart_items = []
+            for i in user_cart:
+                cart_items.append(Game.objects.get(pk = user_cart[i]))
+        except Cart.DoesNotExist:
+            pass
         
     return render(request, 'catalog/cart.html', 
         {'user_cart' : user_cart, 'cart_items' : cart_items}
@@ -88,20 +118,32 @@ def getCart(request):
     
 def dellFromCart(request, pk):
 
-    user_cart = Cart.objects.get(customer = request.user.customer)
-    item = user_cart.items.get(id = pk)
-    user_cart.items.remove(item)
+    if request.user.is_authenticated:
+
+        user_cart = Cart.objects.get(customer = request.user.customer)
+        item = user_cart.items.get(id = pk)
+        user_cart.items.remove(item)
+        
+    else:
+    
+        user_cart = request.session.get('cart', {})        
+        user_cart.pop(pk)        
     
     return getCart(request)
     
 def addToCart(request, pk):
 
     repath = request.GET.get('repath')
-
+    
     game = Game.objects.get(pk = pk)
-
-    user_cart = Cart.objects.get(customer = request.user.customer)
-    user_cart.items.add(game)
+    
+    if request.user.is_authenticated:
+        user_cart = Cart.objects.get(customer = request.user.customer)
+        user_cart.items.add(game)
+    else:
+        user_cart = request.session.get('cart', {})
+        user_cart[pk] = pk
+        request.session['cart'] = user_cart
     
     return HttpResponseRedirect(repath)
 

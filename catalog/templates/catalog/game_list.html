@@ -4,14 +4,29 @@
 
     <div class = "catalog-body">
 
-        <h1 class = "catalog_h1"> наши игры </h1>
+        <!-- <h1 class = "catalog_h1"> наши игры </h1> -->
         
         <div class ="catalog-search">
-            <form action = "{% url 'game_search' %}" method = "GET">
+            <form action = "" method = "GET">
                 {% csrf_token %}
                 {{ form }}            
                 <input type="submit" value="Найти" />
             </form>
+        </div>
+        
+        <div class = "catalog-filters">
+        
+            <p> Жанры </p>        
+                
+                <form action = "" method = "GET">
+                    {% csrf_token %}
+                    {{ genres_form }}            
+                    <br>
+                    <input type="submit" value="Найти" />
+                </form>
+            
+            </div>
+        
         </div>
 
         {% if game_list %}

@@ -185,3 +185,25 @@ body {
     text-align: center;
     margin-top: 6px;
 }
+.catalog-filters {
+    background-color: #fdcf65; 
+    width: 16%;
+    float: left;
+    margin-left: 32px;
+    margin-top: 6px;
+}
+.catalog-filters{
+    text-align: center;
+}
+.catalog-filters form select{
+    width: 200px;
+}
+.catalog-search {
+    width: 100%;
+    text-align: center;
+}
+.catalog-search #id_srequest {
+    width: 55%;
+    margin-bottom: 12px;
+    text-align: center;
+}
