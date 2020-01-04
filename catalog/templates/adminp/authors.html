@@ -1,0 +1,45 @@
+{% extends "admin_generic.html" %}
+
+{% block content %}   
+        
+        
+        
+        
+        <div class = "adminp-content">
+        
+        <h3> Таблица разработчиков</h3> <hr>
+            
+            <div class = "adminp-content-table">
+                <table  border = "1px solid black">
+            
+                <th> Название </th>
+                <th> Изменить </th>
+                <th> Удалить </th>
+                
+                  {% for author in authors %}
+                  
+                  <tr>                                             
+                    
+                    <td>
+                        {{ author.name }}
+                    </td>
+                    
+                    <td>                                
+                        <a href = "{% url 'author_update' author.id %}"> [ИЗМЕНИТЬ] </a>                  
+                    </td>
+                    
+                    <td>                                 
+                        <a href = "{% url 'author_delete' author.id %}"> [УДАЛИТЬ] </a>
+                    </td>
+                    
+                  </tr>
+                  
+                  {% endfor %}
+
+                </table>
+            
+            </div>
+    
+    </div>
+
+{% endblock %}

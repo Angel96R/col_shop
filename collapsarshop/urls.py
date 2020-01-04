@@ -24,7 +24,6 @@ from django.conf.urls import url
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('catalog/', include('catalog.urls')),
-    url(r'^meetings/', include('meetings.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
 

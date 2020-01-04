@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<div class = "client-block-content">
+
+    <div class = "adminp-block-title"> 
+        
+        Регистрация
+                    
+        </div>
+<form action="" method="post">
+      {% csrf_token %}
+      <!-- as_p для того, чтобы каждый элемент формы был с новой строки -->
+      <table>
+      {{ form.as_table }}
+      </table>
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+    
+</div></div>
+{% endblock %}

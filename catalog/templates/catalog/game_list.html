@@ -1,33 +1,31 @@
-{% extends "base_generic.html" %}
+﻿{% extends "base2_generic.html" %}
 
 {% block content %}
 
     <div class = "catalog-body">
 
         <!-- <h1 class = "catalog_h1"> наши игры </h1> -->
+        <form action = "" method = "GET">
         
-        <div class ="catalog-search">
-            <form action = "" method = "GET">
-                {% csrf_token %}
-                {{ form }}            
-                <input type="submit" value="Найти" />
-            </form>
-        </div>
-        
-        <div class = "catalog-filters">
-        
-            <p> Жанры </p>        
-                
-                <form action = "" method = "GET">
-                    {% csrf_token %}
-                    {{ genres_form }}            
-                    <br>
+            {% csrf_token %}
+            <div class ="catalog-search">                                    
+                    {{ form.srequest }}            
                     <input type="submit" value="Найти" />
-                </form>
-            
+                
             </div>
+            
+            <div class = "catalog-filters">
+            
+                <div class = "catalog-filters-title"> Жанры </div>        
+                                        
+                        
+                        {{ form.genre }}            
+                        <br>
+                        <input type="submit" value="Найти" />
+                
+            </div>        
         
-        </div>
+        </form>
 
         {% if game_list %}
         <div class = "catalog-block">
@@ -38,23 +36,36 @@
               
               <li class = "catalog_games rounded">                                             
                 
-                <p> <a href="{{ game.get_absolute_url }}">{{ game.title }}</a> <p>
+                <div class = "catalog_games-title"> <a href="{{ game.get_absolute_url }}"> {{ game.title|truncatechars:20}} </a> </div>
                 
-                <img src="{{ game.image.url }}" width = "250px" height = "150px" alt=""> </p>
+                {% if game.image %}
+                    <img src="{{ game.image.url }}" width = "250px" height = "150px" alt=""> </p>
+                {% else %}
+                    <img src="" width = "250px" height = "150px" alt=""> </p>
+                {% endif %}
                 
-                <p> ({{game.author}}) </p>
+                <div class = "catalog_game_desc">                                    
                 
-                <p> {% for genre in game.genre.all %} 
-                
-                        {{ genre }}
+                    <div class = "catalog_game_desc_genres">
+                    
+                        {% for genre in game.genre.all %} 
                         
-                        {% if not forloop.last %}, {% endif %}
-                        
-                    {% endfor %} 
-                   
-                </p>
+                               <span class = "catalog_game_desc_genre rounded"> {{ genre }} </span> 
+                                
+                                {% if not forloop.last %} {% endif %}
+                                
+                            {% endfor %} 
+                    
+                    </div>                         
                 
-                <p> <a href = " {% url 'cart_add_item' game.id%}?repath={{request.path}} "> в корзину </a> </p>
+                <span class = "catalog_game_desc_author"> <small> {{game.summary|truncatechars:130}} </small> </span>
+                </div>
+                
+                <div class = "catalog_games-cost"> 
+                    <a href = " {% url 'cart_add_item' game.id%}?repath={{request.path}} "> в корзину </a> 
+                    <span class = "catalog_games-cost-cost"> {{game.cost}} р </span>
+                </div>
+                                
                         
               </li>
               
@@ -63,13 +74,43 @@
             </ul>
         
         </div>
-    
-    </div>
+        
+        
+        
+        {% if page_sets.next %}
+        
+        <!--<div class = "catalog_games-nextpage">
+        
+            <a href =  "{% url 'games' %}?page=2"> Следующая страница </a>
+        
+        </div>-->
+        
+        {% endif %}
+        
+        <div class="catalog_games-nextpage">
+    <span class="step-links">
+        {% if game_list.has_previous %}
+            <a href="?page=1&genre={{page_sets.genre}}">&laquo; Первая</a>
+            <a href="?page={{ game_list.previous_page_number }}&genre={{page_sets.genre}}">Пред.</a>
+        {% endif %}
+
+        <span class="current">
+            {{ game_list.number }} / {{ game_list.paginator.num_pages }}
+        </span>
+
+        {% if game_list.has_next %}
+            <a href="?page={{ game_list.next_page_number }}&genre={{page_sets.genre}}">След.</a>
+            <a href="?page={{ game_list.paginator.num_pages }}&genre={{page_sets.genre}}">Последн &raquo;</a>
+        {% endif %}
+    </span>
+</div>
     
     {% else %}
     
       <p> Странно, но игр нет :( </p>
       
     {% endif %}     
+    
+    </div>
     
 {% endblock %}

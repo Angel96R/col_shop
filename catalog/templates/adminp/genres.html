@@ -1,0 +1,45 @@
+{% extends "admin_generic.html" %}
+
+{% block content %}   
+        
+        
+        
+        
+        <div class = "adminp-content">
+        
+        <h3> Таблица жанров</h3> <hr>
+            
+            <div class = "adminp-content-table">
+                <table  border = "1px solid black">
+            
+                <th> Название </th>
+                <th> Изменить </th>
+                <th> Удалить </th>
+                
+                  {% for genre in genres %}
+                  
+                  <tr>                                             
+                    
+                    <td>
+                        {{ genre.name }}
+                    </td>
+                    
+                    <td>                                
+                        <a href = "{% url 'genre_update' genre.id %}"> [ИЗМЕНИТЬ] </a>                  
+                    </td>
+                    
+                    <td>                                 
+                        <a href = "{% url 'genre_delete' genre.id %}"> [УДАЛИТЬ] </a>
+                    </td>
+                    
+                  </tr>
+                  
+                  {% endfor %}
+
+                </table>
+            
+            </div>
+    
+    </div>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "admin_generic.html" %}
+
+{% block content %}           
+        
+        <div class = "adminp-content">
+        
+            <h3> Подтверждение заказа</h3> <hr>
+        
+            <form action="" method="POST">
+        
+            <p> 
+                <table>
+                    <tr> 
+                        <td> Номер заказа: </td>
+                        <td> {{ check_orig.id }}</td>
+                    </tr>
+                    <tr>
+                        <td> Дата заказа: </td>
+                        <td> {{ check_orig.date_create }} </td>
+                    </tr>
+                    <tr>
+                        <td> <strong> Статус: </strong> </td>
+                        <td> 
+                            <select size="1" name="pay_status">                                
+                                <option selected value="payed">Оплачен</option>
+                                <option value="not">Не оплачен</option>
+                           </select
+                        </td>
+                    </tr>
+                </table>
+            </p>
+                        
+                {% csrf_token %}
+            <table border = "1px solid black" class = "main">
+                <th> Название товара </th>
+                <th> Кол-во </th>
+                <th> Цена товара </th>
+                <th> Стомость товара </th>
+                {% for item in check%}
+                    <tr>
+                        <td> {{ item.title }} </td>
+                        <td> 
+                            <span id = "sum_mul">
+                                <input pattern = "[0-9]{1,2}" name = "count_{{ item.id }}" value="1" step="1" required="" id="count_{{ item.id }}" /> 
+                            </span>
+                        </td>
+                        <td> <span id = "price_{{ item.id }}" class = "price_check"> {{ item.cost }} </span> </td>
+                        <td> <span id = "sum_{{ item.id }}" class = "sum_check"> {{ item.cost }} </span> </td>
+                    </tr>
+                {% endfor %}
+            </table>                    
+            
+        <p> <strong> ИТОГО: <span id="sum_all"> </span> </strong> </p>
+        <input type="submit" value="Подтвердить" />
+        </form>     
+
+        </div>
+        
+        <script>
+        
+            $('input').change(function () {
+                if($(this).val() < 1) {
+                    $(this).val(1);                    
+                };
+                var id_count_str = $(this).attr('id');
+                var id_sum_str = id_count_str.replace('count_', 'sum_');
+                var id_price_str = id_count_str.replace('count_', 'price_');
+                $("#" + id_sum_str).text(Number($("#" + id_count_str).val())
+                    * Number($("#" + id_price_str).text()));
+                    
+                update();
+            }); 
+            
+            function update () {
+                var sum = 0;
+
+	              $(".sum_check").each(function () {
+
+	                  sum += +$(this).text()
+
+	              });
+                  
+                  $("#sum_all").text(sum);
+            }
+
+	      $(function () {          
+
+	              update();
+
+	          })
+
+	  </script>
+
+{% endblock %}

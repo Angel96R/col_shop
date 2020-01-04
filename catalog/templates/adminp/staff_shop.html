@@ -1,0 +1,55 @@
+{% extends "admin_generic.html" %}
+
+{% block content %}
+    
+    <div class = "adminp-content">          
+
+        <h3> Таблица сотрудников</h3> <hr>
+        <i> *Удалить - выключение режима "сотрудник" для пользователя </i>
+        
+        <div class = "adminp-content-table">
+            <table  border = "1px solid black">
+                
+                    <th> ФИО </th>
+                    <th> Изменить общее </th>
+                    <th> Изменить права </th>
+                    <th> Удалить </th>                  
+                        
+                        {% for user in users %}
+                        
+                            <tr>
+                                <td>
+                                    {{ user.last_name }} {{ user.first_name }}
+                                </td>
+                                <td>
+                                    {% if request.user.customer.super_staffedit %}
+                                        <a href = "{% url 'staff_shop_update' user.id %}?repath={{request.path}} "> [изменить] </a>
+                                    {% else %}
+                                        нет прав
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if request.user.customer.super_staffedit %}
+                                        <a href = "{% url 'staff_shop_access' user.id %}?repath={{request.path}} "> [изменить] </a>
+                                    {% else %}
+                                        нет прав
+                                    {% endif %}
+                                </td>                                
+                                <td>
+                                    {% if request.user.customer.super_staffedit %}
+                                        <a href = "{% url 'staff_shop_remove' user.id %}?repath={{request.path}} "> [удалить] </a>
+                                    {% else %}
+                                        нет прав
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            
+                        {% endfor %}
+                        
+                    </table>
+                
+                </div>
+    
+    </div>
+
+{% endblock %}

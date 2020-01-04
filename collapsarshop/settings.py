@@ -25,7 +25,9 @@ SECRET_KEY = '%2rlwo_o_zri1%1c1px#u0-b+9a=3a+430!j9@pfdegp%(^j#u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'alex23.pythonanywhere.com',
+]
 
 
 # Application definition
@@ -38,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
-    'meetings.apps.MeetingsConfig',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
+
+SITE_NAME = 'Магазинчик Игр'

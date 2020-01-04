@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        {% block title %}
+
+            <title> {{site.SITE_NAME}} : Админ-панель </title>
+
+        {% endblock %}
+
+        <meta charset = "utf-8">
+        <meta name = "viewport" content = "width=device-width, initial-scale=1">
+
+        <!--
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        -->
+
+        {% load static %}
+        <link rel = "stylesheet" href = "{% static 'css/bootstrap.min.css' %}">
+        <link rel = "stylesheet" href = "{% static 'css/styles.css' %}">
+        <script src = "{% static 'js/bootstrap.min.js' %}"></script>
+        <script src = "{% static 'js/jquery-3.3.1.js' %}"></script>
+    </head>
+
+    <body>
+
+        <div class = "base-header">
+
+            <div class = "base-title">
+                <h1> МАГАЗИНЧИК НАСТОЛЬНЫХ ИГР : АДМИН-ПАНЕЛЬ </h1>
+            </div>
+
+            <div class = "auth_block_admin rounded-bottom">
+                <ul>
+                    <li> <a href = "{% url 'profile'%}"> {{ user.get_username }} </a> </li>
+                    <li> <a href = "{% url 'logout'%}?next={{request.path}}">Выйти</a> </li>
+                    <li> <a href = "{% url 'index-catalog'%}">В магазин</a> </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class = "adminp-menu scroll_menu">
+
+        <div class = "adminp-block-title"> Меню </div>
+
+        <table class = "table">
+            <tr>
+                <td>
+                    <ul>
+                        <strong> Товары </strong> <br>
+                        <li> <a href = "{% url 'game_add' %}"> + Добавить товар </a> </li> <br>
+                        <!--<li> <a href = "{% url 'game_gallery_create' %}"> + Добавить изображение </a> </li> <br>-->
+                        <li> <a href = "{% url 'adminp-games' %}"> Таблица товаров </a> </li> <br>
+                        <li> <a href = "{% url 'authors' %}"> Таблица разработчиков </a> </li> <br>
+                        <li> <a href = "{% url 'genres' %}"> Таблица жанров </a> </li> <br>
+                        <li> <a href = "{% url 'gallery' %}"> Галлерея </a> </li> <br>
+
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <strong> Заказы </strong> <br>
+                        <li> <a href = "{% url 'checkout' %}"> + Оформить заказ </a> </li> <br>
+                        <li> <a href = "{% url 'checknoncomps' %}"> Текущие заказы </a> </li> <br>
+                        <li> <a href = "{% url 'checkhist' %}"> История заказов </a> </li> <br>
+                        <li> <a href = "{% url 'check_report' %}"> Отчетность </a> </li> <br>
+
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <strong> Мероприятия </strong> <br>
+                        <li> <a href = "{% url 'meets_add' %}"> + Добавить мероприятие </a> </li> <br>
+                        <li> <a href = "{% url 'meets_current' %}"> Текущие мероприятия </a> </li> <br>
+                        <li> <a href = "{% url 'meets_hist' %}"> История мероприятий </a> </li> <br>
+
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <strong> Системное </strong> <br>
+                        <!--<li> Новости </li> <br>-->
+                        <li> <a href = "{% url 'staff_shop' %}"> Таблица сотрудников </a> </li> <br>
+                        <li> <a href = "{% url 'users' %}"> Таблица пользователей </a> </li> <br>
+                        <!--<li> Клиенты магазина </li> <br>-->
+                        <!--<li> <a href = "{% url 'carts_shop' %}"> Корзины магазина </a> </li> <br>-->
+                    </ul>
+                </td>
+            <tr>
+        </table>
+        </div>
+
+        <div class = "adminp-content-block">
+            {% block content %}{% endblock %}
+        </div>
+
+    </body>
+</html>

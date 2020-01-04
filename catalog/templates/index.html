@@ -10,10 +10,19 @@
                 {% for game in games %}
                 
                     <li class = "main-slide">
-                        <img src = "{{ game.image.url }}" width = "480px" height = "300px" alt = "game.title">                        
-                        <h1> {{ game.title }} </h1>
-                        <small> {{game.genre }} / {{ game.author }} </small>
-                        <p> {{ game.summary }} </p>
+                        {% if game.image %}
+                            <img src = "{{ game.image.url }}" width = "100%" height = "300px" alt = "game.title">                        
+                        {% endif %}
+                        <h1> <a href = "{% url 'game-detail' game.id %}"> {{ game.title | truncatechars:23}} </a> </h1>
+                        {% for genre in game.genre.all %} 
+                
+                        <span class = "catalog_game_desc_genre rounded"> {{ genre }} </span> 
+                        
+                        {% if not forloop.last %}, {% endif %}
+                        
+                        {% endfor %} 
+                        <hr>                        
+                        <p class = "main-slide-desc"> {{ game.summary | truncatechars:120 }} </p>
                     </li>
             
                 {% endfor %}
@@ -28,7 +37,11 @@
     
         var slides = document.querySelectorAll('#main-slides .main-slide');
         var currentSlide = 0;
-        var slideInterval = setInterval(nextSlide,2000);
+        var slideInterval = setInterval(nextSlide,5000);
+        
+        slides[currentSlide].className = 'main-slide';
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].className = 'main-slide showing';
         
         function nextSlide() {
             slides[currentSlide].className = 'main-slide';

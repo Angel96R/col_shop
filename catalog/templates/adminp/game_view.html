@@ -1,0 +1,89 @@
+{% extends "admin_generic.html" %}
+
+{% block content %}
+
+<div class = "adminp-content">
+
+    <h3> {{ game.title }} </h3> <hr>
+    
+    <p>
+    
+        {% if user.customer.super_edititems %}                                    
+            <a href = "{% url 'game_update' game.id %}"> [ИЗМЕНИТЬ] </a>
+        {% endif %}                         
+        
+        {% if user.customer.super_edititems %}                                    
+            <a href = "{% url 'adminp-games-delete' game.id %}?repath={{request.path}}"> [УДАЛИТЬ] </a>
+        {% endif %}     
+
+    </p>
+        
+    <table class = "table table-striped table-bordered">
+        <tr>
+            <td> 
+                <strong> Название: </strong> 
+            </td>
+            <td>
+                {{ game.title }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong> Обложка: </strong> 
+            </td>
+            <td>
+                <img src="{{ game.image.url }}" width = "200px" height = "auto" alt="" ><br>               
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong> Галлерея </strong>
+            </td>
+            <td>
+                {% if images %}
+                    {% for image in images %}                        
+                            <img src="{{ image.image.url }}" width = "100px" height = "100px" alt="" >                                                
+                    {% endfor %}                  
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong> Разработчик: </strong> 
+            </td>
+            <td>
+                {{ game.author }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong> Описание: </strong> 
+            </td>
+            <td>
+                {{ game.summary }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong> Жанр: </strong> 
+            </td>
+            <td>
+                {% for genre in game.genre.all %}                 
+                    {{genre}} 
+                    {% if not forloop.last %}, {% endif %}
+                        
+                {% endfor %}   
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong> Цена: </strong> 
+            </td>
+            <td>
+                {{ game.cost }}
+            </td>
+        </tr>
+    </table>
+
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+﻿{% extends "admin_generic.html" %}
+
+{% block content %}   
+        
+        <div class = "adminp-content">
+        
+        <h3> Текущие заказы </h3> <hr>
+    
+        {% if checks %}
+            
+            <div class = "adminp-content-table">
+                <table  border = "1px solid black">
+            
+                <th> Номер </th>
+                <th> Статус</th>
+                <th> Создан </th>
+                <th> Заказчик </th>
+                <th> Выполнить </th>
+                <th> Удалить </th>                   
+                    
+                    {% for check in checks %}
+                        <tr>
+                            <td>
+                                <a href = "{% url 'check_view_admin' check.id %}">
+					Заказ №{{ check.id }}
+				</a>
+                            </td>
+                            <td>
+                                {{ check.status }}
+                            </td>
+                            <td>
+                                {{ check.date_create }}
+                            </td>
+                            <td>
+                                {{ check.name }}
+                            </td>
+                            <td>
+                                <a href = " {% url 'check_complete' check.id %} ">
+                                    Выполнить
+                                </a>
+                            </td>
+                            <td>
+                                <a href = " {% url 'check_del' check.id %} ">
+                                    Удалить
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    
+                </table>
+            
+            </div>
+        
+
+    {% else %}
+    
+      <p> Ничего нет, видимо всё выполнено :) </p>
+      
+    {% endif %} 
+    
+    </div>
+    
+    <script>
+        
+        status = "{{status}}";
+        
+        if(status == "1") {
+            alert("Заказ удален успешно");
+        }
+        else if (status == "2") {
+            alert("Заказ выполнен");
+        }
+        
+	</script>
+
+{% endblock %}

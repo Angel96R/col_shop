@@ -1,0 +1,35 @@
+{% extends "admin_generic.html" %}
+
+{% block content %}
+
+<style>
+    #block {
+        display: inline-block;        
+    }
+    #block table {
+        background-color: red;
+    }
+    #block img {
+        display: inline-block;
+        width: 166px;
+    }
+</style>
+
+<div class = "adminp-content">
+
+    <h3> Галлерея </h3> <hr>    
+    
+    {% for image in gallery %}  
+    
+        <div id = "block">
+                <img src = "{{image.image.url}}"/>  
+                <br>
+                <a href = "{% url 'game_view' image.game.id %}"> {{image.game.title}} </a><br>
+                <a href = "{% url 'gallery_update' image.id %}"> [ИЗМЕНИТЬ] </a><br>
+                <a href = "{% url 'gallery_delete' image.id %}"> [УДАЛИТЬ] </a>
+        </div>
+        
+    {% endfor %}
+
+</div>
+{% endblock %}

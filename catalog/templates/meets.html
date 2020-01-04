@@ -1,0 +1,73 @@
+{% extends "base2_generic.html" %}
+
+{% block content %}
+
+    <div class = "client-block-content">
+    
+    {% for meet in meets %}
+
+        <div class = "adminp-block-title"> 
+            
+                
+                <h5> {{ meet.name }} </h5>
+                        
+            </div>
+            
+            <div class = "adminp-content">
+            
+                <table>
+                    <tr>
+                        <td>
+                            Дата и время:
+                        </td>
+                        <td>
+                            {{ meet.date }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Место проведения:
+                        </td>
+                        <td>
+                            {{ meet.address }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Игра:
+                        </td>
+                        <td>
+                                {{ meet.games.title }} 
+                        </td>
+                    </tr>
+                </table>
+                <hr>
+                <p>            
+                    {{ meet.summary | linebreaks }}
+                </p>
+                
+                <p> <i> Участников {{ meet.count }} </i> </p>
+                <a href = "{% url 'to_meet' meet.id %}"> {{ meet.status }} </a>
+            </div>        
+        
+        {% endfor %}
+        
+        </div>
+        
+    <script>
+        
+        status = "{{status}}";
+        
+        if(status == "1") {
+            alert("Вы записались на мероприятие");
+        }
+        else if (status == "2") {
+            alert("Ошибка, пожалуйста авторизуйтесь");
+        }
+        else if (status == "3") {
+            alert("Запись отменена");
+        }
+        
+	</script>
+    
+{% endblock %}

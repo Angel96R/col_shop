@@ -1,0 +1,45 @@
+{% extends "base2_generic.html" %}
+
+{% block content %}
+
+    <div class = "catalog-backpage">
+        <p> <a href = "{% url 'games' %}" > ◀ Назад </a> </p>
+    </div>
+    
+    <div class = "catalog_uniblock">
+    
+        <div class = "catalog_uniblock_head">
+            <p> Профиль </p>
+        </div>
+        
+        <div class = "catalog_uniblock_body">                      
+        
+            <form action="" method="POST"> 
+            {% csrf_token %}            
+            <table>
+                    
+                    <tr> <td> Фамилия: </td> <td> <input value = "{{user.last_name}}" placeholder="Ваша фамилия" type="text" name="last_name" required="" id="name"> </td> </tr>
+                    
+                    <tr> <td> Имя: </td> <td> <input value = "{{user.first_name}}" placeholder="Ваше ФИО" type="text" name="first_name" required="" id="name"> </td> </tr>                                       
+                    
+                    <tr> <td> Почта: </td> <td> <input value = "{{user.email}}" type="email" name="mail" id = "mail" pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" placeholder="Ваш E-mail" title="Пример: bloggood@mail.ru" required /> </td> </tr>
+                    
+            </table>
+            <input type="submit" value="Изменить" />
+            </form><br>
+            
+            <h4> Заказы </h4> <hr>
+            
+            {% for check in checks %}
+            
+                <a href = "{% url 'check_view_client' check.id%}">
+                    Заказ №{{check.id}} от {{check.date_create}}
+                </a><br>
+                
+            {% endfor %}
+            
+        </div>    
+        
+    </div> 
+    
+{% endblock %}

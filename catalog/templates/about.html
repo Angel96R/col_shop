@@ -1,0 +1,61 @@
+{% extends "base2_generic.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class = "client-block-content">
+
+    <div class = "adminp-block-title"> 
+        
+            О нас
+                    
+        </div>
+        
+        <div class = "adminp-content">
+    
+        {% if info %}
+            
+            <h3> Магазинчик настольных игр </h3>
+         
+            <p> {{ info.desc }} </p>
+            
+            <a href = "{{info.link_vk}}">
+                <img src = "{% static '/gfx/vk.png' %}" width = "32px" height = "32px" alt = "VK"/>
+            </a>
+            
+            <a href = "{{info.link_fb}}">
+                <img src = "{% static '/gfx/fb.png' %}" width = "32px" height = "32px" alt = "VK"/>
+            </a>
+            
+            <a href = "{{info.link_tw}}">
+                <img src = "{% static '/gfx/tw.png' %}" width = "32px" height = "32px" alt = "VK"/>
+            </a>
+
+        {% else %}
+    
+            <p> Контактная информация не заполнена, увы :( </p>                        
+      
+        {% endif %} 
+
+        {% if user.customer.super_aboutedit %}                        
+            <div class = "attantion">
+                <hr>
+                <table >
+                <tr>
+                <td><i> <h2> (!) </h2> </i><td>
+                <td><p> <i>Изменить содержимое можно 
+                        <a href = "{% url 'about-edit' %}"> тут. </a><br>
+                    
+                Не переживайте, это сообщение видят только администрароры. </i></p>
+                </td>
+                </tr>
+                </table>
+            </div>
+            
+       {% endif %}
+        
+        </div>
+
+    </div>
+    
+{% endblock %}

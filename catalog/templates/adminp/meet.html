@@ -1,0 +1,75 @@
+{% extends "admin_generic.html" %}
+
+{% block content %}           
+        
+        <div class = "adminp-content">
+    
+        <h3> Мероприятие: {{ meet.name }} </h3> <hr>
+    
+        {% if meet %}
+            
+            <div class = "adminp-content-table">
+                <table  border = "table table-striped table-bordered">                               
+                        <tr>
+                            <td colspan = "2" >
+                                <strong>
+                                    {{ meet.name }}
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Дата:
+                            </td>
+                            <td>
+                                {{ meet.date }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Адрес:
+                            </td>
+                            <td>
+                                {{ meet.address }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Описание:
+                            </td>
+                            <td>
+                                {{ meet.summary }}
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td>
+                                Игра:
+                            </td>
+                            <td>
+                                    {{ meet.games.title }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Участники:
+                            </td>
+                            <td>
+                                {% for user in users %}
+                                    {{ user.username }}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                </table>
+            
+            </div>
+        
+
+    {% else %}
+    
+      <p> Ничего нет, видимо мероприятие не существует:) </p>
+      
+    {% endif %} 
+    
+    </div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+    <div class = "adminp-menu">
+        
+        <div class = "catalog-filters-title"> Меню </div>        
+                
+        <ul>
+        
+            <li> <a href = " {% url 'adminp' %} "> Новости </a>  </li>
+            <li> Заказы магазина </li>
+            <li> Персонал магазина </li>
+            <li> Клиенты магазина </li>
+            <li> Корзины магазина </li>
+            <li> Статистика </li>
+        
+        </ul>
+            
+    </div>  
+    
+    <div class = "adminp-staff_shop">
+        
+        <div class = "catalog-filters-title"> Список корзин покупателей магазина "{{request.user.customer.super_shop.name}}" </div>                               
+    
+        {% if carts %}
+        
+            <ol>
+            
+              {% for cart in carts %}
+              
+              <li>                                             
+                <a href = "{% url 'cart_shop' cart.id %}">
+                    {{ cart.customer.user.first_name }} 
+                    {{ cart.customer.user.last_name }}
+                </a>
+              </li> <br>
+              
+              {% endfor %}
+
+            </ol>
+        
+
+    {% else %}
+    
+      <p> Странно, но игр нет :( </p>
+      
+    {% endif %} 
+    
+    </div>
+
+{% endblock %}

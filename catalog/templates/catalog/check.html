@@ -1,0 +1,112 @@
+{% extends "base2_generic.html" %}
+
+{% block content %}
+
+    <div class = "catalog-backpage">
+        <p> <a href = "{% url 'games' %}" > ◀ Назад </a> </p>
+    </div>
+
+    {% if check %}
+    <div class = "catalog_uniblock">
+    
+        <div class = "catalog_uniblock_head">
+            <p> Заказ </p>
+        </div>
+        
+        <div class = "catalog_uniblock_body">
+            
+            {% if not user.is_authenticated %}                
+            <p><i> По причине того, что вы не авторизованы, просим вас сохранить данные (номер заказа), чтобы забрать заказ </i></p>
+            {% endif %}
+            
+        
+            <table>
+                    <tr> 
+                        <td> Номер заказа: </td>
+                        <td> {{ check.id }}</td>
+                    </tr>
+                    <tr>
+                        <td> Дата заказа: </td>
+                        <td> {{ check.date_create }} </td>
+                    </tr>
+                    <tr>
+                        <td> <strong> Статус: </strong> </td>
+                        <td> 
+                            {{check.status}}
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td> ФИО покупателя:  </td>
+                        <td> 
+                            {{check.name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>  Адрес покупателя:  </td>
+                        <td> 
+                            {{check.address}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>  Телефон покупателя:  </td>
+                        <td> 
+                            {{check.mobile}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Почта покупателя:  </td>
+                        <td> 
+                            {{check.mail}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> <strong> Сумма заказа: </strong> </td>
+                        <td> 
+                            {{check.sum}}
+                        </td>
+                    </tr>
+                </table><br>
+            
+                <table border = "1px solid #000">   
+                
+                    <th> Название </th>
+                    <th> Количество </th>
+                    <th> Цена </th>
+                    <th> Стоимость </th>
+                
+                  {% for game in games %}
+                  
+                  <input hidden id = "{{ game.id }}" value = "{{ game.id }}" /> 
+                  
+                  <tr>
+                    
+                    <td> 
+                        {{ game.title }} 
+                    </td>        
+                    
+                    <td> {{game.count}} </td>
+                    
+                    <td> <span id = "price_{{ game.id }}" class = "price_check"> {{ game.cost }} </span> </td>
+                    
+                    <td> <span id = "sum_{{ game.id }}" class = "sum_check"> {{ game.sum }} </span> </td>                                        
+                    
+                  </tr>
+                  
+                  {% endfor %}
+
+                </table>
+                
+                <p> <strong> ИТОГО: <span id="sum_all"> {{ check.sum }}</span> </strong> </p>                                                            
+                 
+        </div>
+    
+    </div>
+    
+    {% else %}
+    
+      <p>There are no books in the library.</p>
+      
+    {% endif %}  
+        
+{% endblock %}

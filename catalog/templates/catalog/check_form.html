@@ -1,0 +1,36 @@
+{% extends "admin_generic.html" %}
+
+{% block content %}
+
+        <div class = "adminp-content">
+        
+        <h3> Создание заказа</h3> <hr>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <!--<table>{{ form.as_table }}</table>-->
+    <table>
+        <tr>
+            <td>
+                <strong> Товары </strong> 
+            </td>
+            <td>                
+                {{ form.games }}<br>
+                <i> {{ form.games.help_text }} </i>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Сумма:
+            </td>
+            <td>
+                {{ form.cost }}<br>
+                <i> {{ form.cost.help_text }} </i>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Оформить" />
+</form>
+
+</div>
+{% endblock %}

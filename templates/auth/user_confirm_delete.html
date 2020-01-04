@@ -1,0 +1,16 @@
+{% extends "admin_generic.html" %}
+
+{% block content %}
+
+<div class = "adminp-content">
+
+    <h3> Удаление пользователя </h3> <hr>
+
+<p> Вы действительно хотите удалить: {{ user.last_name}} {{ user.first_name }}? </p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" action="" value="Да, удалить" />
+</form>
+</div>
+{% endblock %}

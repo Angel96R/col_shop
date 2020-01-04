@@ -1,51 +1,194 @@
-{% extends "base_generic.html" %}
+{% extends "base2_generic.html" %}
 
 {% block content %}
-    <h1 class = "catalog_h1">Our Games</h1>
 
-    {% if user_cart %}
-    <div class = "catalog_games">
-    
-    <ul>
-    
-      {% for game in cart_items %}
-      
-      <li>
-      
-        <p> 
-        <img src="{{ game.image.url }}" width = "250px" height = "150px" alt=""> </p>
-        
-        <p> <a href="{{ game.get_absolute_url }}">{{ game.title }}</a> <p>
-        
-        <p> ({{game.author}}) </p>
-        
-        <p> {% for genre in game.genre.all %} 
-        
-                {{ genre }}
-                
-                {% if not forloop.last %}, {% endif %}
-                
-            {% endfor %} 
-           
-        </p>
-        
-        <p> ({{game.summary}}) </p>
-        
-        <p> <a href = " {% url 'cart_del_item' game.id %} "> удалить </a> </p>
-        
-        
-      </li>
-      
-      {% endfor %}
-
-    </ul>
-    
+    <div class = "catalog-backpage">
+        <p> <a href = "{% url 'games' %}" > ◀ Назад </a> </p>
     </div>
+    
+    <div class = "catalog_uniblock">
+    
+        <div class = "catalog_uniblock_head">
+            <p> Корзина </p>
+        </div>
+        
+        <div class = "catalog_uniblock_body">
+
+    {% if user_cart %}    
+            
+            <form action="" method="POST">
+            
+                {% csrf_token %}
+                
+                <h3> Товары в корзине </h3> <hr>
+            
+                <table border = "1px solid #000">   
+                
+                    <th> Обложка </th>
+                    <th> Название </th>
+                    <th> Описание </th>
+                    <th> Количество </th>
+                    <th> Цена </th>
+                    <th> Стоимость </th>
+                    <th> Удалить </th>
+                
+                  {% for game in cart_items %}
+                  
+                  <input hidden id = "{{ game.id }}" value = "{{ game.id }}" /> 
+                  
+                  <tr>
+                  
+                    <td> 
+                        <img src="{{ game.image.url }}" width = "auto" height = "64px" alt=""> 
+                    </td>
+                    
+                    <td> 
+                        <a href="{{ game.get_absolute_url }}">{{ game.title }}</a> 
+                    </td>        
+                    
+                    <td> {{game.summary |truncatechars:256}} </td>
+                    
+                    <td>
+                    
+                        <span id = "sum_mul">
+                            <input pattern = "[0-9]{1,2}"
+                                class = "count_class" name = "count_{{ game.id }}" value="1" step="1" required="" id="count_{{ game.id }}" /> 
+                        </span>
+
+                    </td>
+                    
+                    <td> <span id = "price_{{ game.id }}" class = "price_check"> {{ game.cost }} </span> </td>
+                    
+                    <td> <span id = "sum_{{ game.id }}" class = "sum_check"> {{ game.cost }} </span> </td>
+                    
+                    <td> <a href = " {% url 'cart_del_item' game.id %} "> удалить </a> </td>
+                    
+                    
+                  </tr>
+                  
+                  {% endfor %}
+
+                </table>
+                
+                <p> <strong> ИТОГО: <span id="sum_all"> </span> </strong> </p>
+                
+                <br><h3> Оформить заказ </h3> <hr>
+                
+                {% if user.is_authenticated %}  
+
+                    <table>
+                    
+                    <tr> <td> ФИО: </td> <td> <input value = "{{user.first_name}} {{user.last_name}}" placeholder="Ваше ФИО" type="text" name="name" required="" id="name"> </td> </tr>
+                    
+                    <tr> <td> Адрес: </td> <td> <input placeholder="Адрес для доставки" type="text" name="address" required="" id="address"> </td> </tr>
+                    
+                    <tr> <td> Телефон: </td> <td> <input type="text" name="tel" pattern="[0-9]{11}" placeholder="Ваш телефон" title="Пример: 79505624170" id = "tel" required /> <br>
+                        <small><i> Пример: 79505624170 </i></small> </td> </tr>
+                    
+                    <tr> <td> Почта: </td> <td> <input value = "{{user.email}}" type="email" name="mail" id = "mail" pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" placeholder="Ваш E-mail" title="Пример: bloggood@mail.ru" required /> </td> </tr>
+                    
+                    </table>
+                    
+                    <input name = "user_id" id = "user_id" hidden value = "{{user.id}}"/>
+                
+                {% else %}                                    
+                    
+                    <table>
+                    
+                    <tr> <td> ФИО: </td> <td> <input placeholder="Ваше ФИО" type="text" name="name" required="" id="name"> </td> </tr>
+                    
+                    <tr> <td> Адрес: </td> <td> <input placeholder="Адрес для доставки" type="text" name="address" required="" id="address"> </td> </tr>
+                    
+                    <tr> <td> Телефон: </td> <td> <input type="text" name="tel" pattern="[0-9]{11}" placeholder="Ваш телефон" title="Пример: 79505624170" id = "tel" required /> <br>
+                        <small><i> Пример: 79505624170 </i></small> </td> </tr>
+                    
+                    <tr> <td> Почта: </td> <td> <input type="email" name="mail" id = "mail" pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" placeholder="Ваш E-mail" title="Пример: bloggood@mail.ru" required /> </td> </tr>
+                    
+                    </table>
+                
+                {% endif %}                                
+                
+                <br><input type="submit" value="Оформить" />
+        
+            </form>                
     
     {% else %}
     
-      <p>There are no books in the library.</p>
+      <p> У вас нет товаров в корзине...</p>
       
     {% endif %}  
+    
+    <script>
+        
+            $('.count_class').change(function () {
+                if($(this).val() < 1) {
+                    $(this).val(1);                    
+                };
+                var id_count_str = $(this).attr('id');
+                var id_sum_str = id_count_str.replace('count_', 'sum_');
+                var id_price_str = id_count_str.replace('count_', 'price_');
+                $("#" + id_sum_str).text(Number($("#" + id_count_str).val())
+                    * Number($("#" + id_price_str).text()));
+                    
+                update();
+            }); 
+            
+            function update () {
+                var sum = 0;
+
+	              $(".sum_check").each(function () {
+
+	                  sum += +$(this).text()
+
+	              });
+                  
+                  $("#sum_all").text(sum);
+            }
+
+	      $(function () {          
+
+	              update();
+
+	          })
+
+	  </script>
+      
+            {% if user.is_authenticated %}
+            
+            {% if checks %}
+            
+                <br><h3> Текущие заказы </h3> <hr>
+            
+                <table border = "1px solid #000">
+                
+                    <th> Номер </th> 
+                    <th> Статус </th>                     
+                    <th> </th>
+                    
+                    {% for check in checks %}
+                        <tr>
+                            <td>
+                                {{ check.id }}
+                            </td>
+                            <td>
+                                {{ check.status }}
+                            </td>
+                            <td>
+                                <a href = " {% url 'check_view_client' check.id %} ">
+                                    Подробнее
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    
+                </table>
+            
+            {% endif %}
+            
+            {% endif %}
+            
+        </div>    
+        
+    </div> 
     
 {% endblock %}

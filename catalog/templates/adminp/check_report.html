@@ -1,0 +1,80 @@
+﻿{% extends "admin_generic.html" %}
+
+{% block content %}   
+        
+        <div class = "adminp-content">
+        
+            <h3> Отчет по заказам</h3> <hr>
+
+            <form action="" method="post">
+
+                {% csrf_token %}
+                <table>
+                    {{form.as_table}}
+                </table>
+                
+                <input type="submit" value="Получить" />
+            
+            </form>
+            
+            {% if checks %}
+                <hr>
+                <table>
+                    <tr>
+                        <td> Кол-во заказов: </td>
+                        <td> {{count}} </td>
+                    </tr>
+                    <tr>
+                        <td> <strong> Сумма заказов: </strong> </td>
+                        <td> {{sum}} </td>
+                    </tr>
+                </table>
+                <br>
+                <div class = "adminp-content-table">
+                    <table  border = "1px solid black">
+                
+                    <th> Номер </th>
+                    <th> Статус</th>
+                    <th> Создан </th>
+                    <th> Заказчик </th>
+                    <th> Выполнить </th>
+                    <th> Удалить </th>                   
+                        
+                        {% for check in checks %}
+                            <tr>
+                                <td>
+                                    <a href = "{% url 'check_view_admin' check.id %}">
+					Заказ №{{ check.id }}
+				</a>
+                                </td>
+                                <td>
+                                    {{ check.status }}
+                                </td>
+                                <td>
+                                    {{ check.date_create }}
+                                </td>
+                                <td>
+                                    {{ check.name }}
+                                </td>
+                                <td>
+                                    <a href = " {% url 'check_complete' check.id %} ">
+                                        Выполнить
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href = " {% url 'check_del' check.id %} ">
+                                        Удалить
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        
+                    </table>
+                
+                </div>
+            
+            {% endif %}
+            
+        </div>        
+
+{% endblock %}

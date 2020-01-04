@@ -1,0 +1,77 @@
+{% extends "admin_generic.html" %}
+
+{% block content %}
+<div class = "adminp-content">
+<h3> Создание мероприятия </h3> <hr>
+<form enctype="multipart/form-data" action="" method="post">
+    {% csrf_token %}
+   <div class = "adminp-content-table">
+    <table  border = "1px solid black">
+    {{ form.as_table }}
+    </table>
+   </div>
+    <!--<table>
+        <tr>
+            <td> 
+                <strong> Название: </strong> 
+            </td>
+            <td>
+                {{ form.title }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong> Обложка: </strong> 
+            </td>
+            <td>
+                {{ form.image }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <i> 
+                    В случае, если у игры есть ещё изображения, то перейдите в 
+                    <a href = "{% url 'game_gallery_create' %}"> галерею для игры </a> и загрузите изображения
+                </i> 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong> Разработчик: </strong> 
+            </td>
+            <td>
+                {{ form.author }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong> Описание: </strong> 
+            </td>
+            <td>
+                {{ form.summary }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong> Жанр: </strong> 
+            </td>
+            <td>
+                {{ form.genre }}
+                <i> {{ form.genre.help_text }} </i>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong> Цена: </strong> 
+            </td>
+            <td>
+                {{ form.cost }}
+            </td>
+        </tr>
+    </table>-->
+    <input type="submit" value="Добавить" />
+</form>
+</div>
+{% endblock %}

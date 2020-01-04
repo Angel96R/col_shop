@@ -1,0 +1,83 @@
+﻿{% extends "admin_generic.html" %}
+
+{% block content %}   
+        
+        <div class = "adminp-content">
+        
+        <h3> Просмотр заказа №{{ check.id }}</h3> <hr>
+        
+            <p> 
+                <table>
+                    <tr> 
+                        <td> Номер заказа: </td>
+                        <td> {{ check.id }}</td>
+                    </tr>
+                    <tr>
+                        <td> Дата заказа: </td>
+                        <td> {{ check.date_create }} </td>
+                    </tr>
+                    <tr>
+                        <td> <strong> Статус: </strong> </td>
+                        <td> 
+                            {{check.status}}
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td> ФИО покупателя:  </td>
+                        <td> 
+                            {{check.name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>  Адрес покупателя:  </td>
+                        <td> 
+                            {{check.address}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>  Телефон покупателя:  </td>
+                        <td> 
+                            {{check.mobile}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Почта покупателя:  </td>
+                        <td> 
+                            {{check.mail}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> <strong> Сумма заказа: </strong> </td>
+                        <td> 
+                           {{ check.cost }}
+                        </td>
+                    </tr>
+                </table><br>
+            </p>
+            
+                {% csrf_token %}
+            <table border = "1px solid black" class = "main">
+                <th> Название товара </th>
+                <th> Кол-во </th>
+                <th> Цена товара </th>
+                <th> Стомость товара </th>
+                {% for item in games %}
+                    <tr>
+                        <td> {{ item.title }} </td>
+                        <td> 
+                            <span id = "sum_mul">
+                                {{ item.count }}
+                            </span>
+                        </td>
+                        <td> {{ item.cost }} </td>
+                        <td> {{ item.sum }} </td>
+                    </tr>
+                {% endfor %}
+            </table>                    
+            
+        <p> <strong> ИТОГО: {{ check.cost }} </strong> </p>  
+
+        </div>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+﻿{% extends "admin_generic.html" %}
+
+{% block content %}   
+        
+        <div class = "adminp-content">
+        
+        <h3> История заказов </h3> <hr>
+    
+        {% if checks_page %}
+            
+            <div class = "adminp-content-table">
+                <table  border = "1px solid black">
+            
+                <th> Номер </th>
+                <th> Статус</th>
+                <th> Создан </th>
+                <th> Заказчик </th>
+                <th> Удалить </th>                   
+                    
+                    {% for check in checks_page %}
+                        <tr>
+                            <td>
+                                <a href = "{% url 'check_view_admin' check.id %}">
+					Заказ №{{ check.id }}
+				</a>
+                            </td>
+                            <td>
+                                {{ check.status }}
+                            </td>
+                            <td>
+                                {{ check.date_create }}
+                            </td>
+                            <td>
+                                {{ check.name }}
+                            </td>
+                            <td>
+                                <a href = " {% url 'check_del' check.id %}?repath={{request.path}}">
+                                    Удалить
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    
+                </table>
+            
+            </div>
+        
+
+    {% else %}
+    
+      <p> Ничего нет, вы что-то делали? :) </p>
+      
+    {% endif %} 
+    
+    <span class="step-links">
+        {% if checks_page.has_previous %}
+            <a href="?page=1">&laquo; Первая</a>
+            <a href="?page={{ checks_page.previous_page_number }}">Пред.</a>
+        {% endif %}
+
+        <span class="current">
+            {{ checks_page.number }} / {{ checks_page.paginator.num_pages }}
+        </span>
+
+        {% if checks_page.has_next %}
+            <a href="?page={{ checks_page.next_page_number }}">След.</a>
+            <a href="?page={{ checks_page.paginator.num_pages }}">Последн &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+    
+    </div>    
+
+{% endblock %}

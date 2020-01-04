@@ -1,0 +1,37 @@
+{% extends "admin_generic.html" %}
+
+{% block content %}
+
+<div class = "adminp-content">
+
+    <h3> Добавление в галлерею </h3> <hr>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }}
+    <!--
+    <table>
+        <tr>
+            <td> 
+                <strong> Изображение: </strong> 
+            </td>
+            <td>
+                {{ form.image }}
+            </td>
+            <td> 
+                <strong> Игра: </strong> 
+            </td>
+            <td>
+                {{ form.game }}
+            </td>
+            <td>
+                <input type="submit" value="Сохранить" />
+            </td>
+        </tr>
+    </table>        
+    -->
+     <input type="submit" value="Сохранить" />
+</form>
+
+</div>
+{% endblock %}

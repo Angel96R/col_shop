@@ -1,0 +1,72 @@
+{% extends "admin_generic.html" %}
+
+{% block content %}   
+        
+        
+        
+        
+        <div class = "adminp-content">
+        
+        <h3> Список товаров</h3> <hr>
+        
+        {% if games %}
+            
+            <div class = "adminp-content-table">
+                <table  border = "1px solid black">
+            
+                <th> Название </th>
+                <th> Создан</th>
+                <th> Последнее изменение </th>
+                <th> Изменить </th>
+                <th> Удалить </th>
+                
+                  {% for game in games %}
+                  
+                  <tr>                                             
+                    
+                    <td>
+                        <a href = "{% url 'game_view' game.id %}"> {{ game.title }} </a>
+                    </td>
+                    
+                    <td>
+                        {{ game.date_create }} 
+                    </td>
+                    
+                    <td>
+                        {{ game.date_update }}
+                    </td>
+                    
+                    <td>
+                        {% if user.customer.super_edititems %}                                    
+                            <a href = "{% url 'game_update' game.id %}"> [ИЗМЕНИТЬ] </a>
+                        {% else %}
+                             нет прав 
+                        {% endif %}                         
+                    </td>
+                    
+                    <td>
+                        {% if user.customer.super_edititems %}                                    
+                            <a href = "{% url 'adminp-games-delete' game.id %}?repath={{request.path}}"> [УДАЛИТЬ] </a>
+                        {% else %}
+                             нет прав 
+                        {% endif %} 
+                    </td>
+                    
+                  </tr>
+                  
+                  {% endfor %}
+
+                </table>
+            
+            </div>
+        
+
+    {% else %}
+    
+      <p> Странно, но игр нет :( </p>
+      
+    {% endif %} 
+    
+    </div>
+
+{% endblock %}
